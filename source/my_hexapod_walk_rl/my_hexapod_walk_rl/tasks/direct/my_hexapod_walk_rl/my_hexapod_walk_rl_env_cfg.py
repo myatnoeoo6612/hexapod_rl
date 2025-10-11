@@ -1,9 +1,4 @@
-# Copyright (c) 2022-2025, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
-# All rights reserved.
-#
-# SPDX-License-Identifier: BSD-3-Clause
-
-from isaaclab_assets.robots.cartpole import CARTPOLE_CFG
+# Hexapod Walk RL Env Config
 
 from isaaclab.assets import ArticulationCfg
 from isaaclab.envs import DirectRLEnvCfg
@@ -11,38 +6,35 @@ from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.sim import SimulationCfg
 from isaaclab.utils import configclass
 
+from my_hexapod_walk_rl.robots.my_hexapod_walk_rl import MY_HEXAPOD_WALK_RL_CFG
+
+
 
 @configclass
 class MyHexapodWalkRlEnvCfg(DirectRLEnvCfg):
     # env
-    decimation = 2
-    episode_length_s = 5.0
-    # - spaces definition
-    action_space = 1
-    observation_space = 4
+    decimation = 4
+    episode_length_s = 20.0
+
+    # observation/action spaces
+    action_space = 12
+    observation_space = 12 * 2 + 6  # joints + base vel
     state_space = 0
 
     # simulation
     sim: SimulationCfg = SimulationCfg(dt=1 / 120, render_interval=decimation)
 
-    # robot(s)
-    robot_cfg: ArticulationCfg = CARTPOLE_CFG.replace(prim_path="/World/envs/env_.*/Robot")
+    # robot
+    robot_cfg: ArticulationCfg = MY_HEXAPOD_WALK_RL_CFG
 
     # scene
-    scene: InteractiveSceneCfg = InteractiveSceneCfg(num_envs=4096, env_spacing=4.0, replicate_physics=True)
+    scene: InteractiveSceneCfg = InteractiveSceneCfg(
+        num_envs=1024, env_spacing=3.0, replicate_physics=True
+    )
 
-    # custom parameters/scales
-    # - controllable joint
-    cart_dof_name = "slider_to_cart"
-    pole_dof_name = "cart_to_pole"
-    # - action scale
-    action_scale = 100.0  # [N]
-    # - reward scales
+    # reward scales tuned for hybrid tripod+RL
     rew_scale_alive = 1.0
-    rew_scale_terminated = -2.0
-    rew_scale_pole_pos = -1.0
-    rew_scale_cart_vel = -0.01
-    rew_scale_pole_vel = -0.005
-    # - reset states/conditions
-    initial_pole_angle_range = [-0.25, 0.25]  # pole angle sample range on reset [rad]
-    max_cart_pos = 3.0  # reset if cart exceeds this position [m]
+    rew_scale_forward = 3.0
+    rew_scale_upright = 1.0
+    rew_scale_energy = -0.005
+    rew_scale_tripod = 1.0

@@ -13,7 +13,7 @@ from . import agents
 
 
 gym.register(
-    id="Template-My-Hexapod-Walk-Rl-Direct-v0",
+    id="My-Hexapod-Walk-Rl-Direct-v0",
     entry_point=f"{__name__}.my_hexapod_walk_rl_env:MyHexapodWalkRlEnv",
     disable_env_checker=True,
     kwargs={
