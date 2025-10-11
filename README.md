@@ -24,3 +24,4 @@ Follow the official [Isaac Lab installation guide](https://isaac-sim.github.io/I
 ```bash
 git clone https://github.com/<your-user>/my_hexapod_walk_rl.git
 cd my_hexapod_walk_rl
+python scripts/rsl_rl/train.py --task=My-Hexapod-Walk-Rl-Direct-v0 --num_env=512
