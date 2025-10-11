@@ -31,7 +31,7 @@ class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
     critic_obs_normalization=True,
     actor_hidden_dims=[512, 256],
     critic_hidden_dims=[512, 256],
-    activation="silu", 
+    activation="swish", 
     )
 
     # === PPO Algorithm hyperparameters ===
