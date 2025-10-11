@@ -10,7 +10,6 @@ MY_HEXAPOD_WALK_RL_CFG = ArticulationCfg(
         usd_path=USD_PATH,
         scale=(1.0, 1.0, 1.0),
     ),
-
     init_state=ArticulationCfg.InitialStateCfg(
         pos=(0.0, 0.0, 0.05),
         rot=(1.0, 0.0, 0.0, 0.0),
@@ -21,8 +20,8 @@ MY_HEXAPOD_WALK_RL_CFG = ArticulationCfg(
             "hip_4_joint": 0.0, "knee_4_joint": 0.6,
             "hip_5_joint": 0.0, "knee_5_joint": 0.6,
             "hip_6_joint": 0.0, "knee_6_joint": 0.6,
-        }
-
+        },
+        joint_vel={".*": 0.0},
     ),
     actuators={
         "hip_actuators": ImplicitActuatorCfg(
@@ -30,9 +29,9 @@ MY_HEXAPOD_WALK_RL_CFG = ArticulationCfg(
                 "hip_1_joint", "hip_2_joint", "hip_3_joint",
                 "hip_4_joint", "hip_5_joint", "hip_6_joint",
             ],
-            stiffness=80.0,
-            damping=5.0,
-            effort_limit=3.0,
+            stiffness=30.0,
+            damping=3.0,
+            effort_limit=4.0,
         ),
         "knee_actuators": ImplicitActuatorCfg(
             joint_names_expr=[
@@ -40,8 +39,9 @@ MY_HEXAPOD_WALK_RL_CFG = ArticulationCfg(
                 "knee_4_joint", "knee_5_joint", "knee_6_joint",
             ],
             stiffness=40.0,
-            damping=2.0,
-            effort_limit=3.0,
+            damping=4.0,
+            effort_limit=4.0,
         ),
     },
 )
+
