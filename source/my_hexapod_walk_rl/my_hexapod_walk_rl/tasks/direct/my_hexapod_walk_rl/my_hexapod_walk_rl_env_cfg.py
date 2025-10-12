@@ -26,7 +26,7 @@ class MyHexapodWalkRlEnvCfg(DirectRLEnvCfg):
     robot_cfg: ArticulationCfg = MY_HEXAPOD_WALK_RL_CFG
 
     scene: InteractiveSceneCfg = InteractiveSceneCfg(
-        num_envs=128,
+        num_envs=1024,
         env_spacing=3.0,
         replicate_physics=True,
     )

@@ -43,9 +43,9 @@ class MyHexapodWalkRlEnv(DirectRLEnv):
     def _tripod_reference(self, t: float) -> torch.Tensor:
         """Generate ideal tripod gait reference for all 12 joints with joint limits."""
         # === Base gait parameters ===
-        freq = 3.0          # Hz
-        amp_hip = 0.20      # rad amplitude
-        amp_knee = 0.08     # rad amplitude
+        freq = 1.5          # Hz
+        amp_hip = 0.3      # rad amplitude 0.3 good 
+        amp_knee = 0.08     # rad amplitude 0.08 good
         phase_a, phase_b = 0.0, math.pi
 
         # === Real joint limits (from Dynamixel hardware) ===
@@ -145,7 +145,7 @@ class MyHexapodWalkRlEnv(DirectRLEnv):
         jp, jv, lin, ang = map(ensure_flat, (jp, jv, lin, ang))
         obs = torch.cat((jp, jv, lin, ang), dim=-1)
 
-        # ✅ always return dict with key 'policy'
+        # always return dict with key 'policy'
         return {"policy": obs}
 
 

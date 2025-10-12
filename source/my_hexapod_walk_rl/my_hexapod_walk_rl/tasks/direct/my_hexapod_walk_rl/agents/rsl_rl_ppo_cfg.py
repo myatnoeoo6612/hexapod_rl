@@ -18,7 +18,7 @@ class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
     device = "cuda:0"
 
     # === Observation group mapping ===
-    # 🧩 Critical fix: maps env observation dict -> actor/critic inputs
+    # Critical fix: maps env observation dict -> actor/critic inputs
     obs_groups = {
         "policy": ["policy"],
         "critic": ["policy"],
@@ -31,39 +31,39 @@ class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
     critic_obs_normalization=True,
     actor_hidden_dims=[512, 256],
     critic_hidden_dims=[512, 256],
-    activation="swish", 
+    activation="elu", 
     )
 
     # === PPO Algorithm hyperparameters ===
-    # algorithm = RslRlPpoAlgorithmCfg(
-    #     value_loss_coef=2.0,
-    #     use_clipped_value_loss=True,
-    #     clip_param=0.2,
-    #     entropy_coef=0.01,
-    #     num_learning_epochs=40,
-    #     num_mini_batches=4,
-    #     learning_rate=3.0e-4,
-    #     schedule="adaptive",
-    #     gamma=0.99,
-    #     lam=0.95,
-    #     desired_kl=0.01,
-    #     max_grad_norm=1.0,
-    # )
-
     algorithm = RslRlPpoAlgorithmCfg(
-    value_loss_coef=1.0,
-    use_clipped_value_loss=True,
-    clip_param=0.2,
-    entropy_coef=0.02,          # more exploration early
-    num_learning_epochs=20,     # not 40, better balance
-    num_mini_batches=8,         # smoother gradient
-    learning_rate=2.5e-4,       # safe for bigger network
-    schedule="adaptive",
-    gamma=0.99,
-    lam=0.95,
-    desired_kl=0.008,           # tighter control
-    max_grad_norm=1.0,
+        value_loss_coef=2.0,
+        use_clipped_value_loss=True,
+        clip_param=0.2,
+        entropy_coef=0.01,
+        num_learning_epochs=30,
+        num_mini_batches=4,
+        learning_rate=3.0e-4,
+        schedule="adaptive",
+        gamma=0.99,
+        lam=0.95,
+        desired_kl=0.01,
+        max_grad_norm=1.0,
     )
+
+    # algorithm = RslRlPpoAlgorithmCfg(
+    # value_loss_coef=1.0,
+    # use_clipped_value_loss=True,
+    # clip_param=0.2,
+    # entropy_coef=0.02,          # more exploration early
+    # num_learning_epochs=20,     # not 40, better balance
+    # num_mini_batches=8,         # smoother gradient
+    # learning_rate=2.5e-4,       # safe for bigger network
+    # schedule="adaptive",
+    # gamma=0.99,
+    # lam=0.95,
+    # desired_kl=0.008,           # tighter control
+    # max_grad_norm=1.0,
+    # )
 
 
     # === Optional: smoother rollouts ===
