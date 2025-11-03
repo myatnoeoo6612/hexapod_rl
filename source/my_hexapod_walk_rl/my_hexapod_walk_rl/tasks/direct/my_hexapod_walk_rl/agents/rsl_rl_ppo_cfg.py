@@ -12,7 +12,7 @@ from isaaclab_rl.rsl_rl import (
 class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
     # === General training parameters ===
     num_steps_per_env = 24
-    max_iterations = 10000
+    max_iterations = 15000
     save_interval = 200
     experiment_name = "hexapod_tripod"
     device = "cuda:0"
@@ -29,7 +29,7 @@ class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
     init_noise_std=0.25,
     actor_obs_normalization=True,
     critic_obs_normalization=True,
-    actor_hidden_dims=[512, 256],
+    actor_hidden_dims=[ 512, 256],
     critic_hidden_dims=[512, 256],
     activation="elu", 
     )
@@ -40,8 +40,8 @@ class PPORunnerCfg(RslRlOnPolicyRunnerCfg):
         use_clipped_value_loss=True,
         clip_param=0.2,
         entropy_coef=0.01,
-        num_learning_epochs=30,
-        num_mini_batches=4,
+        num_learning_epochs=20,
+        num_mini_batches=16,
         learning_rate=3.0e-4,
         schedule="adaptive",
         gamma=0.99,

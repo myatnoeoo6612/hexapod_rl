@@ -36,3 +36,5 @@ class MyHexapodWalkRlEnvCfg(DirectRLEnvCfg):
     rew_scale_forward = 3.0
     rew_scale_upright = 1.0
     rew_scale_energy = -0.005
+    rew_scale_tripod = 0.5       
+    rew_scale_yaw = 0.3          
